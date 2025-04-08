@@ -7,52 +7,71 @@ document.addEventListener('DOMContentLoaded', () => {
     // Array of letters A-Z
     const letters = Array.from('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
     
-    // Update slider background based on value
-    function updateSliderBackground(value) {
-        const percentage = ((value - 1) / 49) * 100; 
-        charCount.style.background = `linear-gradient(to right, var(--primary-color) 0%, var(--primary-color) ${percentage}%, #E2E8F0 ${percentage}%, #E2E8F0 100%)`;
-    }
-    
-    // Update character count display and button text
-    function updateDisplay(value) {
-        charCountValue.textContent = value;
-        generateBtn.textContent = `Generate ${value} Letter${value > 1 ? 's' : ''}`;
-        updateSliderBackground(value);
-    }
-    
-    // Listen for slider changes
-    charCount.addEventListener('input', () => {
-        updateDisplay(charCount.value);
+
+    // Update letter count display when slider moves
+    letterCount.addEventListener('input', function() {
+        letterCountValue.textContent = this.value;
     });
-    
-    function generateRandomLetters(count) {
-        const result = [];
-        for (let i = 0; i < count; i++) {
-            const randomIndex = Math.floor(Math.random() * letters.length);
-            result.push(letters[randomIndex]);
-        }
-        return result;
-    }
-    
+
+    // Main letter generation function
     function generateLetters() {
-        // Remove previous animation class if exists
-        result.classList.remove('pop-in');
-        
-        // Get current count and generate letters
-        const count = parseInt(charCount.value);
-        const generatedLetters = generateRandomLetters(count);
-        
-        // Get display mode and format output
-        const displayMode = document.querySelector('input[name="displayMode"]:checked').value;
-        const output = displayMode === 'spaced' ? generatedLetters.join(' ') : generatedLetters.join('');
-        
-        // Force a reflow to restart animation
-        void result.offsetWidth;
-        
-        // Add animation and update content
-        result.classList.add('pop-in');
-        result.textContent = output;
+        const count = parseInt(letterCount.value);
+        const caseValue = letterCase.value;
+        const unique = uniqueLetters.checked;
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        let output = '';
+        let used = new Set();
+
+        try {
+            for (let i = 0; i < count; i++) {
+                let letter;
+
+                // Handle unique letter generation
+                if (unique) {
+                    if (used.size >= 26) {
+                        throw new Error('Cannot generate more unique letters than available in the alphabet!');
+                    }
+                    do {
+                        letter = letters[Math.floor(Math.random() * letters.length)];
+                    } while (used.has(letter));
+                    used.add(letter);
+                } else {
+                    letter = letters[Math.floor(Math.random() * letters.length)];
+                }
+
+                // Apply case transformation
+                switch (caseValue) {
+                    case 'lower':
+                        letter = letter.toLowerCase();
+                        break;
+                    case 'mixed':
+                        letter = Math.random() > 0.5 ? letter.toLowerCase() : letter;
+                        break;
+                    default: // 'upper'
+                        break;
+                }
+
+                output += letter + ' ';
+            }
+
+            // Update result with animation
+            result.textContent = output.trim();
+            result.style.animation = 'none';
+            result.offsetHeight; // Trigger reflow
+            result.style.animation = 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+
+            // Add button click animation
+            generateBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                generateBtn.style.transform = 'scale(1)';
+            }, 150);
+
+        } catch (error) {
+            alert(error.message);
+        }
     }
+
+    // Add click event to generate button
     
     // Add click event listener
     generateBtn.addEventListener('click', generateLetters);

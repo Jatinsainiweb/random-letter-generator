@@ -2,23 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Letter Generator A-Z | Instantly Generate Letters & Words</title>
-    <meta name="description" content="Generate random letters from A-Z instantly with our free Random Letter Generator. Perfect for games, education, writing prompts, and creativity. Try now!">
-    <meta name="keywords" content="random letter generator, random letter of the alphabet generator, random alphabet letter generator, random letter and number generator, random letter generator a-z, random number and letter generator, random number letter generator, random 5 letter word generator, random letter generator wheel, random.letter generator, random generator letter, random 3 letter generator, random letter sequence generator, letter generator random, generate a random letter, generator random letter, random letter generater">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Random Letter Generator A-Z | Free Online Letter Generator Tool</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Generate random letters instantly with our free A-Z Letter Generator. Perfect for games, education, writing prompts, and creativity. Generate single letters or sequences easily!">
+    <meta name="keywords" content="random letter generator, letter generator, random alphabet generator, A-Z generator, random letter sequence, educational letter tool, letter games, alphabet generator, random character generator, letter randomizer">
+    <link rel="canonical" href="https://yourdomain.com">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Random Letter Generator">
+    
+    <!-- Schema.org Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Random Letter Generator",
+        "description": "Free online tool to generate random letters from A to Z",
+        "url": "https://yourdomain.com",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
     
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="Random Letter Generator A-Z">
-    <meta property="og:description" content="Generate random letters from A-Z instantly with our free Random Letter Generator. Perfect for games, education, writing prompts, and creativity.">
+    <meta property="og:title" content="Random Letter Generator - Free Online A-Z Generator">
+    <meta property="og:description" content="Generate random letters instantly with our free A-Z Letter Generator. Perfect for games, education, and creativity!">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://yourdomain.com">
+    <meta property="og:image" content="https://yourdomain.com/images/og-image.jpg">
+    <meta property="og:site_name" content="Random Letter Generator">
     
-    <!-- Google Fonts -->
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Random Letter Generator - Free Online A-Z Generator">
+    <meta name="twitter:description" content="Generate random letters instantly with our free A-Z Letter Generator. Perfect for games, education, and creativity!">
+    <meta name="twitter:image" content="https://yourdomain.com/images/twitter-card.jpg">
+    
+    <!-- Mobile Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Letter Generator">
+    <meta name="theme-color" content="#6366F1">
+    
+    <!-- Fonts and Styles -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
     <header class="sticky-header">
@@ -30,31 +74,38 @@
 
     <main class="container">
         <section class="generator-section">
-            <div class="generator-controls">
-                <div class="slider-container">
-                    <label for="charCount">Select number of characters</label>
-                    <div class="slider-wrapper">
-                        <input type="range" id="charCount" min="1" max="50" value="1" class="slider">
-                        <div class="slider-value">
-                            <span>Selected: </span>
-                            <span id="charCountValue">1</span>
+            <div class="generator-box">
+                <div id="result" class="result">Click Generate!</div>
+                
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="letterCount" class="control-label">Number of Letters: <span id="letterCountValue">1</span></label>
+                        <div class="slider-container">
+                            <input type="range" id="letterCount" min="1" max="10" value="1" class="slider">
                         </div>
                     </div>
+                    
+                    <div class="control-group">
+                        <label for="letterCase" class="control-label">Letter Case:</label>
+                        <select id="letterCase" class="select-input">
+                            <option value="upper">UPPERCASE</option>
+                            <option value="lower">lowercase</option>
+                            <option value="mixed">Mixed Case</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="uniqueLetters">
+                            <span>Generate unique letters only</span>
+                        </label>
+                    </div>
                 </div>
-                <div class="display-options">
-                    <label class="display-option">
-                        <input type="radio" name="displayMode" value="spaced" checked>
-                        <span>Spaced Letters (A B C)</span>
-                    </label>
-                    <label class="display-option">
-                        <input type="radio" name="displayMode" value="joined">
-                        <span>Single String (ABC)</span>
-                    </label>
-                </div>
-                <button id="generateBtn" class="generate-button">Generate 1 Letter</button>
-            </div>
-            <div class="result-container">
-                <div id="result" class="result">Click to generate!</div>
+                
+                <button id="generateBtn" class="generate-btn">
+                    <span class="btn-text">Generate Letters</span>
+                    <span class="btn-icon">🎲</span>
+                </button>
             </div>
         </section>
 
