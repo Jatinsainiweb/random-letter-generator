@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://randomlettergenerator.site/sitemap.xml
 
 # Allow all major search engine crawlers
 User-agent: Googlebot
